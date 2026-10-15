@@ -1,0 +1,74 @@
+
+import 'package:flutter/material.dart';
+import 'package:yasmin/core/utils/app_colors.dart';
+import 'package:yasmin/core/utils/app_styles.dart';
+
+class CustomTextFormFeild extends StatelessWidget {
+  const CustomTextFormFeild({
+    super.key,
+    this.hint,
+    this.suffixIcon,
+    required this.textInputType,
+    this.isHidden = false,
+    this.onSaved,
+    this.labelText,
+    this.validator,
+    this.controller,
+    this.maxLines = 1,
+    this.initialValue,
+  });
+
+  final String? hint;
+  final String? labelText;
+  final IconButton? suffixIcon;
+  final TextInputType textInputType;
+  final bool isHidden;
+  final String? Function(String?)? validator;
+  final int maxLines;
+
+  final void Function(String?)? onSaved;
+  final String? initialValue;
+  final TextEditingController? controller;
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+
+      width: double.infinity,
+      child: TextFormField(
+        initialValue: controller == null ? initialValue : null,
+        maxLines: maxLines,
+        controller: controller,
+        validator: validator,
+        onSaved: onSaved,
+        cursorColor: AppColor.kPrimaryColor,
+        obscureText: isHidden,
+        keyboardType: textInputType,
+        decoration: InputDecoration(
+          // helperText: " ",
+          errorStyle: TextStyle(fontSize: 12),
+          labelText: labelText,
+          fillColor: const Color(0xffF9FAFA),
+          labelStyle: AppStyle.styleBold13(context),
+          filled: true,
+          hintText: hint,
+          hintStyle: AppStyle.styleBold13(context),
+          suffixIcon: suffixIcon,
+
+          border: buildBoreder(),
+
+          enabledBorder: buildBoreder(),
+          focusedBorder: buildBoreder().copyWith(
+            borderSide: BorderSide(width: 1, color: AppColor.kPrimaryColor),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+OutlineInputBorder buildBoreder() {
+  return OutlineInputBorder(
+    borderRadius: BorderRadius.circular(12),
+    borderSide: BorderSide(width: 1, color: const Color(0xFFE6E9E9)),
+  );
+}

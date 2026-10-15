@@ -1,0 +1,40 @@
+
+import 'package:flutter/material.dart';
+import 'package:yasmin/core/utils/app_colors.dart';
+import 'package:yasmin/core/utils/app_styles.dart';
+
+class CustomTextBottomWithBackground extends StatelessWidget {
+  const CustomTextBottomWithBackground({
+    super.key,
+    this.ontap,
+    required this.text,
+    this.isLoading = false,
+    this.backgroundColor,
+  });
+  final void Function()? ontap;
+  final String text;
+  final bool isLoading;
+  final Color? backgroundColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 54,
+      width: double.infinity,
+      child: TextButton(
+        onPressed: ontap,
+        style: TextButton.styleFrom(
+          backgroundColor: backgroundColor ?? AppColor.kPrimaryColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadiusGeometry.circular(16),
+          ),
+        ),
+        child: Center(
+          child: isLoading
+              ? Center(child: CircularProgressIndicator(color: Colors.white))
+              : Text(text, style: AppStyle.styleBold16(context)),
+        ),
+      ),
+    );
+  }
+}
